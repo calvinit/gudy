@@ -1,14 +1,20 @@
-package sync
+// Copyright (c) 2024 Calvin. All Rights Reserved.
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file.
+
+package sync_test
 
 import (
 	"fmt"
 	"math/rand"
 	"testing"
 	"time"
+
+	"github.com/calvinit/gudy/sync"
 )
 
 func TestMutex_TryLock(t *testing.T) {
-	var mu Mutex
+	var mu sync.Mutex
 	// Starting a goroutine holds the lock for a random amount of time (< 2 secs) before releasing it.
 	go func() {
 		mu.Lock()
@@ -29,7 +35,7 @@ func TestMutex_TryLock(t *testing.T) {
 }
 
 func TestMutex_Count_IsLocked_IsWoken_IsStarving(t *testing.T) {
-	var mu Mutex
+	var mu sync.Mutex
 	for i := 0; i < 1000; i++ {
 		go func() {
 			mu.Lock()
